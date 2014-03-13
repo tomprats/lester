@@ -1,0 +1,8 @@
+<% url = @painting.id ? update_painting_path(@gallery.id, @painting.id) : create_painting_path(@gallery.id, ) %>
+<% method = @painting.id ? :post : :put %>
+<%= form_for :painting, url: url, method: method do |f| %>
+  Title:                 <%= f.text_field :title %><br>
+  Description:           <%= f.text_field :description %><br>
+  Url:                   <%= f.text_field :url %><br>
+  <%= f.submit "Save" %>
+<% end%>

@@ -1,0 +1,11 @@
+<h3>Edit Paintings for <%= @gallery.title %></h3>
+<% @paintings.each do |painting| %>
+  <div>
+    <span><%= painting.title %> | </span>
+    <span><%= link_to "View", painting_path(@gallery.id, painting.id) %> | </span>
+    <span><%= link_to "Edit", edit_painting_path(@gallery.id, painting.id) %> | </span>
+    <span><%= link_to "Delete", destroy_painting_path(@gallery.id, painting.id), method: :delete %></span>
+  </div>
+<% end.empty? and begin %>
+  <div>There are no paintings for this gallery</div>
+<% end %>

@@ -1,0 +1,9 @@
+<h3>Galleries</h3>
+<% @galleries.each do |gallery| %>
+  <div>
+    <span><%= gallery.title %> | </span>
+    <span><%= link_to "View", gallery_path(gallery.id) %></span>
+  </div>
+<% end.empty? and begin %>
+  <div>There are no galleries yet!</div>
+<% end %>

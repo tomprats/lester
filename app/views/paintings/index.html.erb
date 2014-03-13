@@ -1,0 +1,12 @@
+<h3>Paintings for <%= @gallery.title %></h3>
+<% @paintings.each do |painting| %>
+  <div>
+    <span><%= painting.title %> | </span>
+    <span><%= link_to "View", painting_path(@gallery.id, painting.id) %></span>
+  </div>
+<% end.empty? and begin %>
+  <div>There are no paintings yet!</div>
+<% end %>
+<br>
+Link: <%= link_to paintings_url(@gallery.title), paintings_path(@gallery.title) %><br>
+Permanent Link: <%= link_to paintings_url(@gallery.id), paintings_path(@gallery.id) %>

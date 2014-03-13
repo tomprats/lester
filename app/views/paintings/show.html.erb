@@ -1,0 +1,7 @@
+<h3>Painting for <%= @gallery.title %></h3>
+<%= image_tag @painting.url %>
+Title:       <%= @painting.title %><br>
+Description: <%= @painting.description %><br>
+<br>
+Link: <%= link_to painting_url(@gallery.title, @painting.title), painting_path(@gallery.title, @painting.title) %><br>
+Permanent Link: <%= link_to painting_url(@gallery.id, @painting.id), painting_path(@gallery.id, @painting.id) %>

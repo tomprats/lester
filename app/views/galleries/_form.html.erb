@@ -1,0 +1,10 @@
+<% url = @gallery.id ? update_gallery_path(@gallery.id) : create_gallery_path %>
+<% method = @gallery.id ? :post : :put %>
+<%= form_for :gallery, url: url, method: method do |f| %>
+  <% unless @paintings.empty? %>
+    Cover: <%= f.collection_select :cover_id, @paintings, :id, :title  %><br>
+  <% end %>
+  Title:                 <%= f.text_field :title %><br>
+  Description:           <%= f.text_field :description %><br>
+  <%= f.submit "Save" %>
+<% end%>

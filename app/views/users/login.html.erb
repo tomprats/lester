@@ -1,0 +1,15 @@
+<h3>Sign In</h3>
+<%= form_for :user, url: signin_path do |f| %>
+  Email:                 <%= f.text_field :email %><br>
+  Password:              <%= f.password_field :password %><br>
+  <%= f.submit "Sign In" %>
+<% end%>
+<h3>Sign Up</h3>
+<%= form_for :user, url: signup_path do |f| %>
+  First name:            <%= f.text_field :first_name %><br>
+  Last name:             <%= f.text_field :last_name %><br>
+  Email:                 <%= f.text_field :email %><br>
+  Password:              <%= f.password_field :password %><br>
+  Password confirmation: <%= f.password_field :password_confirmation %><br>
+  <%= f.submit "Sign Up" %>
+<% end%>

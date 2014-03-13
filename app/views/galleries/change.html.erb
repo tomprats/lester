@@ -1,0 +1,23 @@
+<h3>Private Galleries</h3>
+<% @private.each do |gallery| %>
+  <div>
+    <span><%= gallery.title %> | </span>
+    <span><%= link_to "Publish", publish_gallery_path(gallery.id), method: :patch %> | </span>
+    <span><%= link_to "Edit", edit_gallery_path(gallery.id) %> | </span>
+    <span><%= link_to "Delete", destroy_gallery_path(gallery.id), method: :delete %></span>
+  </div>
+<% end.empty? and begin %>
+  <div>There are no private galleries</div>
+<% end %>
+
+<h3>Public Galleries</h3>
+<% @public.each do |gallery| %>
+  <div>
+    <span><%= gallery.title %> | </span>
+    <span><%= link_to "Unpublish", unpublish_gallery_path(gallery.id), method: :patch %> | </span>
+    <span><%= link_to "Edit", edit_gallery_path(gallery.id) %> | </span>
+    <span><%= link_to "Delete", destroy_gallery_path(gallery.id), method: :delete %></span>
+  </div>
+<% end.empty? and begin %>
+  <div>There are no public galleries</div>
+<% end %>

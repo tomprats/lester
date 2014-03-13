@@ -1,0 +1,9 @@
+<% if @gallery.cover %>
+  <%= image_tag @gallery.cover.url %><br>
+<% end %>
+Title:       <%= @gallery.title %><br>
+Description: <%= @gallery.description %><br>
+Paintings:   <%= link_to "View", paintings_path(@gallery.id) %><br>
+<br>
+Link: <%= link_to gallery_url(@gallery.title), gallery_path(@gallery.title) %><br>
+Permanent Link: <%= link_to gallery_url(@gallery.id), gallery_path(@gallery.id) %>

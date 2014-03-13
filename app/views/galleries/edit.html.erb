@@ -1,0 +1,10 @@
+<h3>Edit Gallery</h3>
+<%= render partial: "form" %>
+
+<br>
+
+<div>
+  <span><%= link_to "Add Painting", new_painting_path(@gallery.id) %> | </span>
+  <span><%= link_to "Edit Painting", change_paintings_path(@gallery.id) %> | </span>
+  <span>Total Paintings: <%= @gallery.paintings.count %></span>
+</div>
