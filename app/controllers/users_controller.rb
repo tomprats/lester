@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  require "bcrypt"
-
   before_filter :current_user, except: [:logout]
 
   def profile
@@ -10,45 +8,31 @@ class UsersController < ApplicationController
   end
 
   def signup
-    # Email present
-    if params[:user][:email].blank?
-      redirect_to login_path, alert: "Email is required"
-    # Unique email
-    elsif !User.where(email: params[:user][:email]).empty?
-      redirect_to login_path, alert: "Email already taken"
-    # Password present
-    elsif params[:user][:password].blank?
-      redirect_to login_path, alert: "Password is required"
-    # Matching passwords
-    elsif params[:user][:password] != params[:user][:password_confirmation]
+    if params[:user][:password] != params[:user][:password_confirmation]
       redirect_to login_path, alert: "Passwords don't match"
     else
-      user = User.create(
-        first_name:         params[:user][:first_name],
-        last_name:          params[:user][:last_name],
-        email:              params[:user][:email],
-        encrypted_password: password,
-        artist:             false,
-        admin:              false,
-        token:              SecureRandom.uuid
-      )
+      user = User.new(user_params)
+      user.password = params[:user][:password]
+      if user.save!
+        session[:user]  = user.id
+        session[:token] = user.token
 
-      session[:user] = user.id
-      session[:token] = user.token
-
-      redirect_to root_path, notice: "Welcome to Code Calmly"
+        redirect_to root_path, notice: "Welcome to the world of art"
+      else
+        redirect_to login_path, alert: "Unable to sign up"
+      end
     end
   end
 
   def signin
     user = User.where(email: params[:user][:email]).first
-    if user && BCrypt::Password.new(user.encrypted_password) == params[:user][:password]
-      user.update_attribute(:token, SecureRandom.uuid)
-      session[:user] = user.id
+    if user.password == params[:user][:password]
+      session[:user]  = user.id
       session[:token] = user.token
-      redirect_to root_path, notice: "Welcome to Code Calmly"
+
+      redirect_to root_path, notice: "Welcome to the world of art"
     else
-      redirect_to login_path, alert: "Invalid credentials"
+      redirect_to login_path, alert: "Unable to sign in"
     end
   end
 
@@ -65,7 +49,7 @@ class UsersController < ApplicationController
     redirect_to root_path, notice: "You're already logged in!" if @current_user
   end
 
-  def password
-    BCrypt::Password.create(params[:user][:password])
+  def user_params
+    params.require(:user).permit(:email, :first_name, :last_name)
   end
 end
