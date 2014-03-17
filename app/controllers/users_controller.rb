@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     else
       user = User.new(user_params)
       user.password = params[:user][:password]
-      if user.save!
+      if user.save
         session[:user]  = user.id
         session[:token] = user.token
 
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
   def signin
     user = User.where(email: params[:user][:email]).first
-    if user.password == params[:user][:password]
+    if user && user.password == params[:user][:password]
       session[:user]  = user.id
       session[:token] = user.token
 

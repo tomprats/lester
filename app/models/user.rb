@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   def password=(new_password)
     @password = Password.create(new_password)
-    update_attributes(encrypted_password: @password)
+    self.encrypted_password = @password
   end
 
   def name?
